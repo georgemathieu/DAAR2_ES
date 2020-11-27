@@ -3,6 +3,7 @@ package com.daar.example.services;
 import static java.util.stream.Collectors.toList;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +22,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.daar.example.ExampleApplication;
 import com.daar.example.models.es.EsCV;
+import com.daar.example.resources.CVContext;
 import com.google.gson.Gson;
 
 @Service
 public class CVService {
+	
+	private List<CVContext> cvToAdd = new ArrayList<>();
 	
 	@Autowired
 	private RestHighLevelClient restHighLevelClient;
@@ -52,6 +57,10 @@ public class CVService {
 	}
 	
 	
+	public void postCV(CVContext cv) {
+		cvToAdd.add(cv);
+	}
+	
 	private List<EsCV> executeQuery(SearchSourceBuilder searchSourceBuilder) throws IOException {
         SearchRequest searchRequest = new SearchRequest("cvs");
         searchRequest.source(searchSourceBuilder);
@@ -61,6 +70,10 @@ public class CVService {
                 .map(cv -> gson.fromJson(cv, EsCV.class))
                 .collect(toList());
     }
-	
 
+	public List<CVContext> getCvToAdd() {
+		return cvToAdd;
+	}
+
+	
 }

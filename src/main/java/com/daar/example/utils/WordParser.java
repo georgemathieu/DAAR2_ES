@@ -3,6 +3,7 @@ package com.daar.example.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
@@ -27,7 +28,7 @@ public class WordParser {
 		HWPFDocument doc = new HWPFDocument(fis);
 		WordExtractor we = new WordExtractor(doc);
 		String parsedText = we.getText();
-		parsedText = parsedText.replace("\n", " ").replace("\r", " ");
+		parsedText = parsedText.replace("\n", " ").replace("\r", " ").replace("\t", " ");
 		doc.close();
 		fis.close();
 		return parsedText;
