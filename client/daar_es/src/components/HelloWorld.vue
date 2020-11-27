@@ -6,6 +6,15 @@
       </label>
         <button v-on:click="submitFile()">Submit</button>
     </div>
+    <div class="large-12 medium-12 small-12 cell">
+      <label>Competence
+        <input type="text" id="text" ref="text" v-on:change="handleSkillSearch()"/>
+      </label>
+        <button v-on:click="searchSkill()">Recherche</button>
+    </div>
+    <div class="large-12 medium-12 small-12 cell">
+      <p style="font-size:80%;">{{ this.display }}</p>
+    </div>
   </div>
 </template>
 
@@ -15,12 +24,17 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      file: ''
+      file: '',
+      text: '',
+      display: ''
     }
   },
   methods: {
     handleFileUpload () {
       this.file = this.$refs.file.files[0]
+    },
+    handleSkillSearch () {
+      this.text = this.$refs.text.value
     },
     submitFile () {
       let formData = new FormData()
@@ -36,6 +50,20 @@ export default {
         })
         .catch(function () {
           console.log('cv upload failed')
+        })
+    },
+    searchSkill () {
+      axios
+        .get('http://localhost:8080/v1/api/cvs', {
+          params: {
+            'competence': this.text
+          }
+        })
+        .then(response =>
+          (this.display = response.data.cv)
+        )
+        .catch(function (res) {
+          console.log(res)
         })
     }
   }

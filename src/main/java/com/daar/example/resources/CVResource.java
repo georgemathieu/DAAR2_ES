@@ -42,8 +42,16 @@ public class CVResource {
 	}
 	
 	@GetMapping(params = {"competence"})
-	public ResponseEntity<List<EsCV>> getCVBySkill(@RequestParam("competence") String comp) throws IOException {
-		return ResponseEntity.ok(cvService.getCVs(comp));
+	public Map<String,Object> getCVBySkill(@RequestParam("competence") String comp) throws IOException {
+		HashMap<String, Object> map = new HashMap<>();
+		List<EsCV> listeCV = cvService.getCVs(comp);
+		map.put("status", 200);
+		HashMap<String, Object> cvs = new HashMap<>();
+		listeCV.forEach(cv -> {
+			cvs.put(cv.getId().toString(), cv.getContent());
+		});
+		map.put("cv", listeCV);
+		return map;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = {"multipart/form-data"})
@@ -51,7 +59,6 @@ public class CVResource {
     public Map<String,Object> postCV(@RequestPart("file") @NotNull MultipartFile f) throws IOException
     {
 		Path path = Paths.get(f.getOriginalFilename()).toAbsolutePath();
-		System.out.println(path.toString());
 		File file = path.toFile();
 		f.transferTo(file);
     	HashMap<String, Object> map = new HashMap<>();
