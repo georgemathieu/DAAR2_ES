@@ -7,4 +7,4 @@ Utilisation :
 - Avoir npm et lancer la commande `npm install` puis `npm run start` dans `client/daar_es`
 - Avoir Maven et lancer la commande `mvnw spring-boot:run` dans le dossier principal (là où est le `pom.xml`)
 
-L'application se lance sur le port 8080.
+L'application se lance sur le port 8081.
