@@ -13,7 +13,7 @@ public class PDFParser {
 		PDDocument pdf = PDDocument.load(f);
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 		String parsedText = pdfStripper.getText(pdf);
-		parsedText = parsedText.replace("\n", " ").replace("\r", " ");
+		//parsedText = parsedText.replace("\n", " ").replace("\r", " ");
 		pdf.close();
 		return parsedText;
 	}

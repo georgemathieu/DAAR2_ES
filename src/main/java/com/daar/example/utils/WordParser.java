@@ -17,7 +17,7 @@ public class WordParser {
 		XWPFDocument doc = new XWPFDocument(fis);
 		XWPFWordExtractor we = new XWPFWordExtractor(doc);
 		String parsedText = we.getText();
-		parsedText = parsedText.replace("\n", " ").replace("\t", " ");
+		//parsedText = parsedText.replace("\n", " ").replace("\t", " ");
 		doc.close();
 		fis.close();
 		return parsedText;
@@ -28,7 +28,7 @@ public class WordParser {
 		HWPFDocument doc = new HWPFDocument(fis);
 		WordExtractor we = new WordExtractor(doc);
 		String parsedText = we.getText();
-		parsedText = parsedText.replace("\n", " ").replace("\r", " ").replace("\t", " ");
+		//parsedText = parsedText.replace("\n", " ").replace("\r", " ").replace("\t", " ");
 		doc.close();
 		fis.close();
 		return parsedText;

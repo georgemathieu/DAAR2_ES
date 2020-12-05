@@ -1,19 +1,25 @@
 <template>
   <div class="hello">
     <div class="large-12 medium-12 small-12 cell">
-      <label>File
+      <h2>Projet DAAR3 : Spring Boot et ElasticSearch</h2>
+      <br>
+    </div>
+    <div class="large-12 medium-12 small-12 cell">
+      <label>CV à upload :
         <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
       </label>
-        <button v-on:click="submitFile()">Submit</button>
+        <button v-on:click="submitFile()">Envoyer</button>
+        <br>
     </div>
     <div class="large-12 medium-12 small-12 cell">
-      <label>Competence
+      <br>
+      <label>Competence à chercher :
         <input type="text" id="text" ref="text" v-on:change="handleSkillSearch()"/>
       </label>
-        <button v-on:click="searchSkill()">Recherche</button>
+        <button v-on:click="searchSkill()">Rechercher</button>
     </div>
     <div class="large-12 medium-12 small-12 cell">
-      <p style="font-size:80%;">{{ this.display }}</p>
+      <pre style="font-size:80%;">{{ this.display }}</pre>
     </div>
   </div>
 </template>
@@ -60,7 +66,7 @@ export default {
           }
         })
         .then(response =>
-          (this.display = response.data.cv)
+          (response.data.cv.map(c => (this.display += c.content + '\n ----------------------------------------------------------- \n')))
         )
         .catch(function (res) {
           console.log(res)
@@ -86,5 +92,24 @@ li {
 }
 a {
   color: #42b983;
+}
+button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border:0.1em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.18em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:#6669E9;
+  text-align:center;
+  transition: all 0.2s;
+}
+button:hover{
+  color:#FFFFFF;
+  background-color:#0B88E7;
 }
 </style>
