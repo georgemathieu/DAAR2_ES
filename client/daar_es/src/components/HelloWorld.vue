@@ -59,6 +59,7 @@ export default {
         })
     },
     searchSkill () {
+      this.display = ''
       axios
         .get('http://localhost:8080/v1/api/cvs', {
           params: {
